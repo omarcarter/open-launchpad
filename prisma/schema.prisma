@@ -1,0 +1,70 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+}
+
+model User {
+  id            String    @id @default(cuid())
+  email         String    @unique
+  name          String?
+  role          String    @default("user")
+  image         String?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+  templates     Template[]
+  launches      Launch[]
+  integrations  Integration[]
+}
+
+model Template {
+  id          String    @id @default(cuid())
+  name        String
+  description String?
+  category    String
+  stack       String    @default("next")
+  config      String
+  userId      String
+  user        User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  launches    Launch[]
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+}
+
+model Launch {
+  id          String    @id @default(cuid())
+  title       String
+  description String?
+  status      String    @default("draft")
+  visibility  String    @default("private")
+  url         String?
+  tags        String    @default("[]")
+  userId      String
+  user        User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  templateId  String?
+  template    Template? @relation(fields: [templateId], references: [id])
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+}
+
+model Integration {
+  id        String   @id @default(cuid())
+  name      String
+  provider  String
+  config    String
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model AnalyticsEvent {
+  id         String   @id @default(cuid())
+  name       String
+  properties String?
+  userId     String?
+  launchId   String?
+  createdAt  DateTime @default(now())
+}
