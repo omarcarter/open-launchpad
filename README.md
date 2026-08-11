@@ -1,8 +1,10 @@
 # OpenLaunchpad
 
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
 Ship your next project faster with reusable launch templates, tracked launches, and integrations.
 
----
+Repository: [https://github.com/omarcarter/open-launchpad](https://github.com/omarcarter/open-launchpad)
 
 ## Overview
 
@@ -37,19 +39,22 @@ OpenLaunchpad is a developer-focused web app for moving projects from idea to de
 ## Installation
 
 ```bash
+git clone https://github.com/omarcarter/open-launchpad.git
+cd open-launchpad
 npm install
 ```
 
 ## Environment Variables
 
-Required:
-- `DATABASE_URL` if using a database URL-based workflow; local SQLite uses the bundled `prisma/dev.db`.
+Local SQLite uses the bundled `prisma/dev.db` automatically. If you switch to a database URL-based workflow, set `DATABASE_URL` to your database connection string.
 
 ## Usage
 
 ```bash
 npm run dev
 ```
+
+Open http://localhost:3000 in your browser.
 
 ## License
 
